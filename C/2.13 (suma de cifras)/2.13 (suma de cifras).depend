@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1650254044 source:c:\users\duckhappy\documents\c\2.13 (suma de cifras)\main.c
+	<stdio.h>
+	<stdlib.h>
+

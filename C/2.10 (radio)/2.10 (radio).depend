@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1650242796 source:c:\users\duckhappy\documents\c\2.10 (radio)\main.c
+	<stdio.h>
+	<stdlib.h>
+

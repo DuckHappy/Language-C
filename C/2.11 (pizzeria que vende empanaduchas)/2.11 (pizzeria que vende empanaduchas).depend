@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1650245976 source:c:\users\duckhappy\documents\c\2.11 (pizzeria que vende empanaduchas)\main.c
+	<stdio.h>
+	<stdlib.h>
+
