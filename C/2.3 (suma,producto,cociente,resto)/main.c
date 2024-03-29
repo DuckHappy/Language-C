@@ -31,7 +31,7 @@ int main()
         //resto
         printf("\n\nres");
         res=num1%cociente;
-        printf("\n%d%", res);
+        printf("\n %d", res);
 
 
 
