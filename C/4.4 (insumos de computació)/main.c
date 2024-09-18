@@ -1,12 +1,12 @@
-/*Se ingresan las ventas de un comercio de insumos de computación. Por cada venta se ingresa:
-• Número de cliente (entero de 4 dígitos no correlativos).
-• Importe (mayor a cero).
-• Número de vendedor (entero de 1 a 10).
-El ingreso de datos finaliza con un número de cliente 999.
-Se sabe que no son más de 100 clientes, la carga de los clientes se debe realizar al inicio del programa con la
-función CARGA_CLIENTE () y para cada uno se ingresa:
-• Código de cliente (entero de 4 dígitos no correlativos).
-• Nombre y Apellido (50 caracteres máximo).
+/*Se ingresan las ventas de un comercio de insumos de computaciÃ³n. Por cada venta se ingresa:
+â€¢ NÃºmero de cliente (entero de 4 dÃ­gitos no correlativos).
+â€¢ Importe (mayor a cero).
+â€¢ NÃºmero de vendedor (entero de 1 a 10).
+El ingreso de datos finaliza con un nÃºmero de cliente 999.
+Se sabe que no son mÃ¡s de 100 clientes, la carga de los clientes se debe realizar al inicio del programa con la
+funciÃ³n CARGA_CLIENTE () y para cada uno se ingresa:
+â€¢ CÃ³digo de cliente (entero de 4 dÃ­gitos no correlativos).
+â€¢ Nombre y Apellido (50 caracteres mÃ¡ximo).
 Se solicita:
 a. Determinar la cantidad de ventas realizadas por cliente.
 b. La cantidad de ventas realizadas por vendedor.
@@ -21,8 +21,10 @@ X XXXXX XXXXXXXX $ XXXXXXXXX,XX*/
 
 typedef struct
 {
-int NumeroCliente,NumeroVendedor;
-float importe,TotalFacturado;
+int NumeroCliente;
+int NumeroVendedor;
+float importe;
+float TotalFacturado;
 }venta;
 
 typedef struct
