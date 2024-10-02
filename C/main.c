@@ -12,16 +12,16 @@ typedef struct {
 } vendedor;
 
 // Funciones
-void carga1(vendedor v[]);
-int buscar(vendedor v[], int dato, int lim);
-void carga2(vendedor v[], float m[][49]);
-void mostrar(float m[][49], vendedor v[]);
-void menor(vendedor v[]);
-void punto3(vendedor v[]);
+void carga1(vendedor[]);
+int buscar(vendedor[], int, int);
+void carga2(vendedor[], float[][49]);
+void mostrar(float[][49], vendedor[]);
+void menor(vendedor[]);
+void punto3(vendedor[]);
 
 int main() {
     vendedor ven[50];
-    float m[20][49] = {{0}}; // Declaración de matriz
+    float m[20][49] = {{0}}; // DeclaraciÃ³n de matriz
 
     carga1(ven);
     carga2(ven, m);
@@ -115,7 +115,7 @@ void carga1(vendedor v[]) {
         getchar(); // Para limpiar el buffer
         printf("Ingrese nombre: ");
         fgets(v[x].nom, 26, stdin);
-        v[x].nom[strcspn(v[x].nom, "\n")] = 0; // Elimina el salto de línea
+        v[x].nom[strcspn(v[x].nom, "\n")] = 0; // Elimina el salto de lÃ­nea
 
         do {
             printf("Ingrese sector (e/m/v/t): ");
@@ -146,7 +146,7 @@ void punto3(vendedor v[]) {
 
     for (int x = 0; x < 50; x++) {
         if (v[x].sec == 'e') {
-            impE += v[x].com; // Sumar la comisión
+            impE += v[x].com; // Sumar la comisiÃ³n
         } else if (v[x].sec == 'm') {
             impM += v[x].com;
         } else if (v[x].sec == 'v') {
