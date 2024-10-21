@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1729473063 source:g:\others\new folder\parcial 2\crear_archivo.c\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
