@@ -107,6 +107,7 @@ void error(char c[4],int h)
     {
         printf("Codigo: %s, Horas: %d\n", er.cod, er.hrs);
     }
+    fclose(pf);
 }
 
 
