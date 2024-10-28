@@ -74,9 +74,6 @@ int main()
         enc=buscar(cod,pf);
 
     }
-    fseek(pf,0,SEEK_END);
-    b=ftell(pf);
-    c=b/sizeof(sueldo);
 
     mayor(pf);
     tot(pf);
