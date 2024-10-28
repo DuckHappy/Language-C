@@ -21,8 +21,8 @@ typedef struct
 int buscar(char[],FILE *);
 void actualizar(char[],int,FILE*);
 void error(char[],int);
-void mayor(int,FILE*);
-void tot(int,FILE*);
+void mayor(FILE*);
+void tot(FILE*);
 
 int main()
 {
@@ -47,7 +47,7 @@ int main()
     }
     rewind(pf);
 
-    printf("ingrese codigo : ");
+    printf("ingrese codigo FIN para terminar: ");
     fgets(cod,4,stdin);
     cod[strcspn(cod, "\n")] = 0;
     enc=buscar(cod,pf);
@@ -78,8 +78,8 @@ int main()
     b=ftell(pf);
     c=b/sizeof(sueldo);
 
-    mayor(c,pf);
-    tot(c,pf);
+    mayor(pf);
+    tot(pf);
     fclose(pf);
 
     return 0;
@@ -132,7 +132,7 @@ void actualizar(char cod[4], int h, FILE *pf)
     rewind(pf);
 }
 
-void mayor(int c, FILE *pf)
+void mayor(FILE *pf)
 {
     sueldo s;
     int x;
@@ -140,47 +140,50 @@ void mayor(int c, FILE *pf)
     char nom_max[31];
 
     rewind(pf);
-    for(x=0;x<c;x++)
+
+    fread(&s,sizeof(s),1,pf);
+    while(!feof(pf))
     {
-        fread(&s,sizeof(s),1,pf);
+
         if(s.cob>max_s)
         {
             max_s=s.cob;
             strcpy(nom_max,s.nom);
         }
+        fread(&s,sizeof(s),1,pf);
     }
     printf("el nombre del maximo es %s  con una cantidad de %f \n", nom_max, max_s);
 }
 
-int buscar(char dato[], FILE *pf)
+int buscar(char dato[4], FILE *pf)
 {
     int enc=0;
     rewind(pf);
     sueldo s;
 
-    fread(&s,sizeof(sueldo),1,pf);
+    fread(&s,sizeof(s),1,pf);
     while(!feof(pf))
     {
         if(strcmp(dato,s.cod)==0)
         {
             enc=1;
         }
-        fread(&s,sizeof(sueldo),1,pf);
+        fread(&s,sizeof(s),1,pf);
     }
     return enc;
 }
 
-void tot(int c, FILE* pf)
+void tot(FILE* pf)
 {
     sueldo s;
     float c_a=0,c_t=0,c_d=0,c_e=0;
     int x;
 
     rewind(pf);
-    for(x=0;x<c;x++)
-    {
-        fread(&s,sizeof(s),1,pf);
 
+    fread(&s,sizeof(s),1,pf);
+    while(!feof(pf))
+    {
         if(s.cat=='a')
         {
           c_a+=s.cob;
@@ -197,6 +200,7 @@ void tot(int c, FILE* pf)
         {
           c_e+=s.cob;
         }
+        fread(&s,sizeof(s),1,pf);
     }
     printf("cantidad total por catalogo... \nA:%f  \nT:%f  \nD:%f  \nE:%f\n",c_a,c_t,c_d,c_e);
 }
