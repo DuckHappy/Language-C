@@ -81,7 +81,7 @@ int main()
 
     return 0;
 }
-void error(char c[4],int h)
+void error(char c[],int h)
 {
     FILE *pf;
     errores er;
@@ -108,7 +108,7 @@ void error(char c[4],int h)
 }
 
 
-void actualizar(char cod[4], int h, FILE *pf)
+void actualizar(char cod[], int h, FILE *pf)
 {
     sueldo s;
 
@@ -152,7 +152,7 @@ void mayor(FILE *pf)
     printf("el nombre del maximo es %s  con una cantidad de %f \n", nom_max, max_s);
 }
 
-int buscar(char dato[4], FILE *pf)
+int buscar(char dato[], FILE *pf)
 {
     int enc=0;
     rewind(pf);
