@@ -1,0 +1,15 @@
+Te daban tres archivos
+
+Clientes.dat que contenía dni (entero), plan(string de 20), nombre y apellido (string de 50)
+
+plan.dat que contenía plan (mismo string), costo(float), minutos[que podes gastar en el plan](int), megas[que podes gastar en el plan](int), minutos adicionales [cuanto vale el minuto extra si te pasas de 
+los que te provee el plan](float), megas adicionales[lo mismo pero en megas] (float).
+
+consumo.dat  este indicaba los consumos del cliente a lo largo del mes, dni(entero), fechayhora(considerado como un entero todo junto), tipo de consumo(char que podia ser L o M, L indica que usa minutos y M que usa megas), 
+cantidad consumida (entero).
+
+el archivo consumo estaba ordenado por DNI, y se te pedía armar un csv que tenga un listado de los clientes tomando informacion de los tres archivos y informe, dni(entero), nombre y apellido (char[51]), importe a pagar.
+por suerte lo aprobe con 8, me dijo que estaba todo bien excepto una cosita que hice. Si no se entiende mucho porq por ahi me comí algo del ejercicio te explico que chota hice en VC. porque alta paja escribir. Tengo la 
+hoja de lo que use de analisis del ejercicio.
+
+Pero en resumen fue un corte de control y son re importante las dos busquedas, porque casi todo sale del archivo de los planes para sacar lo del importe
