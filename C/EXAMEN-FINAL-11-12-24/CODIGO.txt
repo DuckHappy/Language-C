@@ -1,0 +1,156 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct{
+    int dni;
+    char plan[21], nombre[41];
+}tCliente;
+
+typedef struct{
+    char plan[21];
+    float costo;
+    int megas, minutos, minAd, megAd;
+}tPlan;
+
+typedef struct{
+    int dni, fecha, cant;//cant es la cantidad consumida
+    char tipo;//L o M, si es L, multiplico por minAd, y si es M con megAd
+}tConsumo;
+
+typedef struct{
+    int dni;
+    char nombre[41];
+    float importe;
+}tLista;
+
+void mensajeYfin();
+int buscar2(char [], FILE *);
+int buscar1(int, FILE *);
+void mostrarLista();
+
+int main()
+{
+    FILE *clientes=fopen("CLIENTES.dat", "rb");
+    FILE *consumo=fopen("CONSUMO.dat", "rb");
+    FILE *plan=fopen("PLANES.dat", "rb");
+    FILE *csv=fopen("LISTA.csv", "w");
+    tPlan auxPlan;
+    tCliente auxClient;
+    tConsumo auxCon;
+    tLista auxList;
+    int pos1, pos2, dniAnterior;
+    char planAnterior[21];
+    if(!clientes || !consumo || !plan || !csv)
+        mensajeYfin();
+        
+    rewind(consumo);
+    fread(&auxCon, sizeof(tConsumo), 1, consumo);
+    while(!feof(consumo))
+    {
+        dniAnterior=auxCon.dni;
+        auxList.dni=dniAnterior;//
+        auxList.importe=0;
+        
+        pos1=buscar1(auxCon.dni, clientes);
+           if(pos1!=-1)
+            {
+                fseek(clientes, pos1*sizeof(tCliente), SEEK_SET);
+                fread(&auxClient, sizeof(tCliente), 1, clientes);
+                strcpy(auxList.nombre,auxClient.nombre);//
+                
+                pos2=buscar2(auxClient.plan, plan);
+                if(pos2!=-1)
+                {
+                    fseek(plan, pos2*sizeof(tPlan), SEEK_SET);
+                    fread(&auxPlan, sizeof(tPlan), 1, plan);
+                    auxList.importe=auxPlan.costo;//
+                }   
+                
+            }
+        while(!feof(consumo) && dniAnterior==auxCon.dni)
+        {
+            if(auxCon.tipo=='M')
+            {
+                if(auxCon.cant>auxPlan.megas)
+                    auxList.importe+=(auxCon.cant-auxPlan.megas)*auxPlan.megAd;    
+            }
+            else if(auxCon.tipo=='L')
+            {    
+                if(auxCon.cant>auxPlan.minutos)
+                    auxList.importe+=(auxCon.cant-auxPlan.minutos)*auxPlan.minAd;
+            }
+            fread(&auxCon, sizeof(tConsumo), 1, consumo);
+        }
+        fprintf(csv, "%d; %s; %.2f\n", auxList.dni, auxList.nombre, auxList.importe);
+    }
+    
+    mostrarLista();
+   
+    fclose(clientes);
+    fclose(consumo);
+    fclose(plan);
+    fclose(csv);
+    
+    return 0;
+}
+
+void mensajeYfin()
+{
+    puts("error al abrir algun archivo");
+    system("pause");
+    exit(1);
+}
+
+int buscar2(char buscado[], FILE *arch)
+{
+    int i=0, pos=-1;
+    tPlan aux;
+    
+    rewind(arch);
+    fread(&aux, sizeof(tPlan), 1, arch);
+    while(!feof(arch))
+    {
+        if(strcmp(buscado, aux.plan)==0 && pos==-1)
+            pos=i;
+        else
+            i++;
+        fread(&aux, sizeof(tPlan), 1, arch);
+    }
+    return pos;
+}
+
+
+int buscar1(int buscado, FILE *arch)
+{
+    int i=0, pos=-1;
+    tCliente aux;
+    
+    rewind(arch);
+    fread(&aux, sizeof(tCliente), 1, arch);
+    while(!feof(arch) && pos==-1)
+    {
+        if(buscado==aux.dni)
+            pos=i;
+        else
+            i++;
+        fread(&aux, sizeof(tCliente), 1, arch);
+    }
+    return pos;
+}
+
+void mostrarLista()
+{
+    FILE *arch=fopen("LISTA.csv", "r");
+    if(!arch)
+        mensajeYfin();
+    tLista aux;
+    fread(&aux, sizeof(tLista), 1, arch);
+    while(!feof(arch))
+    {
+        printf("%d \t%s \t%f \n", aux.dni, aux.nombre, aux.importe);
+        fread(&aux, sizeof(tLista), 1, arch);
+    }
+    fclose(arch);
+}
+
